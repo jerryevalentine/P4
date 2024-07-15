@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Select Table to Display Data</h1>
+
+<form method="post">
+    <label for="table">Select Table:</label>
+    <select name="table" id="table">
+        {% for table in tables %}
+            <option value="{{ table }}" {% if table == selected_table %}selected{% endif %}>{{ table }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Display Data</button>
+</form>
+
+{% if table_data is not none and not table_data.empty %}
+    <h2>Data from Table: {{ selected_table }}</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for col in table_data.columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table_data.iterrows() %}
+                <tr>
+                    {% for col in row[1] %}
+                        <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+{% endblock %}
