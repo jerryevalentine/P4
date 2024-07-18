@@ -51,6 +51,6 @@ customer - find 10 songs - (optional)
 --spotify
 
 # Dividing work (forthcoming)
-
+https://docs.google.com/spreadsheets/d/1-Ttu41BTSP5QXD3MFTdNnh74qGrx0aDad_mFvdCUwQk/edit?gid=0#gid=0
 # Timeline (forthcoming)
-
+https://docs.google.com/spreadsheets/d/1-Ttu41BTSP5QXD3MFTdNnh74qGrx0aDad_mFvdCUwQk/edit?gid=0#gid=0
