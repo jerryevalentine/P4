@@ -4,7 +4,8 @@ import sys
 
 from libraries.db_utils import query_table, get_metadata_tables
 
-database_path = r'C:\Users\jerry\Programming\P4\resources\spotify.db'
+base_dir = os.path.dirname(os.path.abspath(__file__))
+database_path = os.path.join(base_dir, 'resources', 'spotify.db')
 
 app = Flask(__name__)
 
