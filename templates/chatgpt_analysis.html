@@ -11,11 +11,7 @@
             {% endfor %}
         </select>
     </div>
-    <div>
-        <label for="user_input">Enter text:</label>
-        <textarea id="user_input" name="user_input" rows="10" cols="100" maxlength="10000"></textarea>
-    </div>
-    <button type="submit">Submit to ChatGPT</button>
+    <button type="submit">Get Analysis</button>
 </form>
 {% if chatgpt_results %}
     <h3>Analysis</h3>
