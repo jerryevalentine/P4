@@ -8,6 +8,10 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from libraries.db_utils import query_table, get_metadata_tables, query_column
 from libraries.chatgpt_utils import get_chatgpt_analysis
 
+# load scaler
+# load model
+# load original_df
+
 database_path = r'C:\Users\jerry\Programming\P4\resources\spotify.db'
 OPENAI_API_KEY = 'sk-proj-2F0wcgrKsNYmYqANo00aT3BlbkFJVuZiG980OzTXp2v9ykiZ'  # Hard-coded API key
 
@@ -44,6 +48,43 @@ def EDA():
 @app.route('/model_results')
 def model_results():
     return render_template('model_results.html')
+
+@app.route('/model_recommendation', methods=['GET', 'POST'])
+def model_recommendation(): 
+    if request.method=='POST': 
+        # model predict
+        preferences=request.form
+        recommendations=recommend_songs(X, X, preferences, X, X) # TODO
+        
+        return render_template('model_recommendation.html', recommendations=list(recommendations))
+    else: 
+        return render_template('model_recommendation.html')
+
+def recommend_songs(model, scaler, preferences, original_df, features):
+    # Convert preferences to DataFrame
+    user_df = pd.DataFrame([preferences])
+    
+    # Scale the user preferences
+    user_scaled = scaler.transform(user_df)
+    
+    # Predict the popularity for the user's preferences
+    predicted_popularity = model.predict(user_scaled)
+    
+    # Add the predicted popularity to the user_df
+    user_df['predicted_popularity'] = predicted_popularity
+    
+    # Combine with the original dataset to find similar songs
+    similar_songs = original_df.copy()
+    for feature in preferences.keys():
+        similar_songs[feature] = similar_songs[feature] - preferences[feature]
+    similar_songs['distance'] = np.sqrt(np.sum(np.square(similar_songs[features]), axis=1))
+    
+    # Drop duplicates based on track_name and track_artist
+    similar_songs = similar_songs.drop_duplicates(subset=['track_name', 'track_artist'])
+    
+    # Get the top 10 similar songs
+    top_10_songs = similar_songs.sort_values(by='distance').head(10)
+    return top_10_songs[['track_name', 'track_artist', 'distance']]
 
 @app.route('/model_prediction')
 def model_prediction():
