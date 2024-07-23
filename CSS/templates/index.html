@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Spotify Song Prediction App{% endblock %}
+
+{% block content %}
+<section>
+    <h1 class="title-large">Spotify Song Prediction App</h1>
+
+    <h3 class="section-header">Data</h3>
+    <p class="section-content">https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs</p>
+    <p class="section-content">The data is on song, not by customer.</p>
+
+    <h3 class="section-header">Questions</h3>
+    <p class="section-content">How well can we predict the popularity of a song (for instance, r-squared)?</p>
+    <p class="section-content">What are the most important factors in predicting the popularity of a song?</p>
+    <p class="section-content">Can we build a recommendation based on user preferences (danceability, liveness, etc.)?</p>
+
+    <h3 class="section-header">Song (focus)</h3>
+    <p class="section-content">danceability</p>
+    <p class="section-content">liveness</p>
+    <p class="section-content">popularity (0/1)</p>
+    <p class="section-content">r-squared .95</p>
+    <p class="section-content">Predict popularity of new song</p>
+    <p class="section-content">new song ---> (model)--> 0/1</p>
+</section>
+{% endblock %}

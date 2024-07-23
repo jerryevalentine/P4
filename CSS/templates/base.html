@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Spotify Song Prediction App{% endblock %}</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+    <header>
+        <nav class="nav-pane">
+            <ul class="nav">
+                <li class="nav-item">Website Navigation
+                    <a class="nav-link" href="/">Instructions</a>
+                    <a class="nav-link" href="/test">Test Page: Layout</a>
+                    <a class="nav-link" href="/chatgpt_analysis">ChatGPT Analysis</a>
+                    <a class="nav-link" href="/chatgpt_conversation">ChatGPT Conversation</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container">
+        {% block content %}
+        <!-- This block will be overridden by content from other pages -->
+        {% endblock %}
+    </main>
+</body>
+</html>
