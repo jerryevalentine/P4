@@ -4,24 +4,168 @@
 
 {% block content %}
 <section>
-    <h1>Spotify Song Prediction App</h1>
+    <h1>Spotify Summary</h1>
+    <ul>
+        <li>This application uses Spotify data.</li>
+        <li>Spotify is an audio streaming and media service provider.</li>
+        <li>It is one of the largest music streaming service providers with:
+            <ul>
+                <li>Over 615 million monthly active users</li>
+                <li>239 million paying subscribers *</li>
+            </ul>
+        </li>
+    </ul>
 
-        <h3>Data</h3>
-            <p>https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs</p>
-            <p>The data is on song, not by customer.</p>
+    <h1>Display Data</h1>
+    <ul>
+        <li>Displays the top 10 rows of any table in the database.</li>
+        <li>Shows the table statistics</li>
+    </ul>
 
-        <h3>Questions</h3>
-            <p>How well can we predict the popularity of a song (for instance, r-squared)?</p>
-            <p>What are the most important factors in predicting the popularity of a song?</p>
-            <p>Can we build a recommendation based on user preferences (danceability, liveness, etc.)?</p>
+    <h1>Model Results</h1>
+    <ul>
+        <li>Runs the neural network model on the table selected in the drop-down list box.</li>
+    </ul>
 
-        <h3>Song (focus)</h3>
-            <p>danceability</p>
-            <p>liveness</p>
-            <p>popularity (0/1)</p>
-            <p>r-squared .95</p>
-            <p>Predict popularity of new song</p>
-            new song ---> (model)--> 0/1
+    <h1>ChatGPT Analysis</h1>
+    <ul>
+        <li>Note that the ChatGPT API does not remember previous queries. They are independent.</li>
+        <li>Submits the results of a model to ChatGPT for analysis.</li>
+        <li>Returns the analysis with an explanation of the model.</li>
+    </ul>
+
+    <h1>ChatGPT Conversation</h1>
+    <ul>
+        <li>Contains a text box and a Submit to ChatGPT button.</li>
+        <li>Allows a conversation with ChatGPT.</li>
+    </ul>
+
+    <h1>Recommendation</h1>
+    <ul>
+        <li>The user can enter values for each factor and get the 10 to song recommendations.</li>
+        <li>Note that each factor has a different numeric scale. See list below for values:</li>
+    </ul>
+
+    <table border="1">
+        <tr>
+            <th>track_popularity</th>
+            <th>danceability</th>
+            <th>energy</th>
+            <th>loudness</th>
+            <th>mode</th>
+            <th>speechiness</th>
+            <th>acousticness</th>
+            <th>instrumentalness</th>
+            <th>liveness</th>
+            <th>hit</th>
+        </tr>
+        <tr>
+            <td>count</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.00</td>
+            <td>32833.0</td>
+        </tr>
+        <tr>
+            <td>mean</td>
+            <td>42.48</td>
+            <td>0.65</td>
+            <td>0.70</td>
+            <td>-6.72</td>
+            <td>0.57</td>
+            <td>0.11</td>
+            <td>0.18</td>
+            <td>0.08</td>
+            <td>0.19</td>
+            <td>0.1</td>
+        </tr>
+        <tr>
+            <td>std</td>
+            <td>24.98</td>
+            <td>0.15</td>
+            <td>0.18</td>
+            <td>2.99</td>
+            <td>0.50</td>
+            <td>0.10</td>
+            <td>0.22</td>
+            <td>0.22</td>
+            <td>0.15</td>
+            <td>0.3</td>
+        </tr>
+        <tr>
+            <td>min</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>-46.45</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.00</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>25%</</td>
+            <td>24.00</td>
+            <td>0.56</td>
+            <td>0.58</td>
+            <td>-8.17</td>
+            <td>0.00</td>
+            <td>0.04</td>
+            <td>0.02</td>
+            <td>0.00</td>
+            <td>0.09</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>50%</</td>
+            <td>45.00</td>
+            <td>0.67</td>
+            <td>0.72</td>
+            <td>-6.17</td>
+            <td>1.00</td>
+            <td>0.06</td>
+            <td>0.08</td>
+            <td>0.00</td>
+            <td>0.13</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>75%</</td>
+            <td>62.00</td>
+            <td>0.76</td>
+            <td>0.84</td>
+            <td>-4.64</td>
+            <td>1.00</td>
+            <td>0.13</td>
+            <td>0.26</td>
+            <td>0.00</td>
+            <td>0.25</td>
+            <td>0.0</td>
+        </tr>
+        <tr>
+            <td>max</td>
+            <td>100.00</td>
+            <td>0.98</td>
+            <td>1.00</td>
+            <td>1.27</td>
+            <td>1.00</td>
+            <td>0.92</td>
+            <td>0.99</td>
+            <td>0.99</td>
+            <td>1.00</td>
+            <td>1.0</td>
+        </tr>
+    </table>
+
+    <p>* <a href="https://en.wikipedia.org/wiki/Spotify">https://en.wikipedia.org/wiki/Spotify</a></p>
+
     
 </section>
 {% endblock %}
