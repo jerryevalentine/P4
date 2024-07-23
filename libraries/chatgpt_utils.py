@@ -18,6 +18,7 @@ def get_chatgpt_analysis(api_key, model_name, db_path, table_name='neural_networ
 
     # Formatting the data for analysis
     analysis_text = f"This is a Logistic Regression Model. Analysis for Model: {model_name}\n\n"
+    analysis_text = f"This is a Neural Network Model. Please provide the analysis for Model: {model_name}\n\n"
     for _, row in result.iterrows():
         analysis_text += f"Table: {row['table_name']}\n"
         analysis_text += f"Loss: {row['loss']}\n"
