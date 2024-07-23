@@ -5,19 +5,19 @@ import sys
 # Add the libraries directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'libraries'))
 
-from libraries.chatgpt_utils import get_chatgpt_analysis, get_chatgpt_response, get_model_names_from_results2
-from libraries.db_utils import query_table, get_metadata_tables
+from libraries.chatgpt_utils import get_chatgpt_analysis, get_chatgpt_response
+from libraries.db_utils import query_table, get_metadata_tables, get_table_names
+from libraries.dataframe_utils import get_dataframe_statistics
 
 
+if not OPENAI_API_KEY:
+    raise ValueError("No API key found. Please set the OPENAI_API_KEY environment variable.")
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 database_path = os.path.join(base_dir, 'resources', 'spotify.db')
 
-# This is if it is set as an environment variable.
-if not OPENAI_API_KEY:
-    raise ValueError("No API key found. Please set the OPENAI_API_KEY environment variable.")
-
 app = Flask(__name__)
+app.secret_key = os.urandom(24)  # Needed for session management, such as flash messages
 
 @app.route('/')
 def index():
@@ -28,22 +28,25 @@ def display_data():
     metadata = get_metadata_tables(database_path)
     selected_table = None
     table_data = None
+    table_stats = None
     if request.method == 'POST':
         selected_table = request.form.get('table')
         if selected_table:
             table_data = query_table(selected_table, database_path, num_of_rows=10)
+            if not table_data.empty:
+                table_stats = get_dataframe_statistics(table_data)
 
-    return render_template('display_data.html', metadata=metadata, selected_table=selected_table, table_data=table_data)
+    return render_template('display_data.html', metadata=metadata, selected_table=selected_table, table_data=table_data, table_stats=table_stats)
 
 @app.route('/chatgpt_analysis', methods=['GET', 'POST'])
 def chatgpt_analysis():
     if request.method == 'POST':
         model_name = request.form['model_name']
         # Fetch necessary data for ChatGPT analysis
-        chatgpt_results = get_chatgpt_analysis(OPENAI_API_KEY, model_name, database_path, table_name='model_results2')
+        chatgpt_results = get_chatgpt_analysis(OPENAI_API_KEY, model_name, database_path, table_name='neural_network_results')
         return render_template('chatgpt_analysis.html', chatgpt_results=chatgpt_results)
     
-    model_names = get_model_names_from_results2(database_path)
+    model_names = get_table_names(database_path, table_name='neural_network_results')
     return render_template('chatgpt_analysis.html', model_names=model_names)
 
 @app.route('/chatgpt_conversation', methods=['GET', 'POST'])
