@@ -5,13 +5,11 @@ import sys
 # Add the libraries directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'libraries'))
 
+#OPENAI_API_KEY = hidden
+
 from libraries.chatgpt_utils import get_chatgpt_analysis, get_chatgpt_response
-from libraries.db_utils import query_table, get_metadata_tables, get_table_names
+from libraries.db_utils import query_table, get_metadata_tables, get_table_names, get_db_connection
 from libraries.dataframe_utils import get_dataframe_statistics
-
-
-if not OPENAI_API_KEY:
-    raise ValueError("No API key found. Please set the OPENAI_API_KEY environment variable.")
 
 base_dir = os.path.dirname(os.path.abspath(__file__))
 database_path = os.path.join(base_dir, 'resources', 'spotify.db')
@@ -57,6 +55,14 @@ def chatgpt_conversation():
         chatgpt_response = get_chatgpt_response(OPENAI_API_KEY, user_input)
     
     return render_template('chatgpt_conversation.html', chatgpt_response=chatgpt_response)
+
+@app.route('/data_dictionary')
+def data_dictionary():
+    conn = get_db_connection(database_path)
+    df = query_table('data_dictionary', database_path)
+    conn.close()
+    data_html = df.to_html(classes='table table-striped', index=False)
+    return render_template('data_dictionary.html', table=data_html)
 
 if __name__ == '__main__':
     app.run(debug=True)
