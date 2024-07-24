@@ -5,7 +5,7 @@ import sys
 # Add the libraries directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'libraries'))
 
-#OPENAI_API_KEY = hidden
+OPENAI_API_KEY = ###
 
 from libraries.chatgpt_utils import get_chatgpt_analysis, get_chatgpt_response
 from libraries.db_utils import query_table, get_metadata_tables, get_table_names, get_db_connection
