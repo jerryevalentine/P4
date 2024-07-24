@@ -34,4 +34,28 @@
         </tbody>
     </table>
 {% endif %}
+
+{% if table_stats is not none %}
+    <h2>Statistics for Table: {{ selected_table }}</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th></th>
+                {% for col in table_stats.columns %}
+                    <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in table_stats.itertuples() %}
+                <tr>
+                    {% for col in row %}
+                        <td>{{ col }}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
 {% endblock %}
