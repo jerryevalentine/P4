@@ -5,7 +5,7 @@ import sys
 # Add the libraries directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), 'libraries'))
 
-OPENAI_API_KEY = ###
+OPENAI_API_KEY = #######
 
 from libraries.chatgpt_utils import get_chatgpt_analysis, get_chatgpt_response
 from libraries.db_utils import query_table, get_metadata_tables, get_table_names, get_db_connection
@@ -39,10 +39,14 @@ def display_data():
 @app.route('/chatgpt_analysis', methods=['GET', 'POST'])
 def chatgpt_analysis():
     if request.method == 'POST':
+        if 'clear' in request.form:
+            return redirect(url_for('chatgpt_analysis'))
+        
         model_name = request.form['model_name']
+        user_input = request.form['user_input']
         # Fetch necessary data for ChatGPT analysis
-        chatgpt_results = get_chatgpt_analysis(OPENAI_API_KEY, model_name, database_path, table_name='neural_network_results')
-        return render_template('chatgpt_analysis.html', chatgpt_results=chatgpt_results)
+        chatgpt_results = get_chatgpt_analysis(OPENAI_API_KEY, model_name, database_path, table_name='neural_network_results', user_input=user_input)
+        return render_template('chatgpt_analysis.html', chatgpt_results=chatgpt_results, model_names=get_table_names(database_path, table_name='neural_network_results'))
     
     model_names = get_table_names(database_path, table_name='neural_network_results')
     return render_template('chatgpt_analysis.html', model_names=model_names)
