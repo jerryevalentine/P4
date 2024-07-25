@@ -1,11 +1,7 @@
 import openai
 import sqlite3
 import pandas as pd
-import os
-import sys
 
-
-# Function to establish a database connection
 def get_db_connection(database_path):
     try:
         conn = sqlite3.connect(database_path)
@@ -15,7 +11,7 @@ def get_db_connection(database_path):
         print(f"Failed to connect to database: {e}")
         return None
 
-def get_chatgpt_analysis(api_key, model_name, database_path, table_name='neural_network_results'):
+def get_chatgpt_analysis(api_key, model_name, database_path, table_name='neural_network_results', user_input=''):
     openai.api_key = api_key
     conn = sqlite3.connect(database_path)
     
@@ -47,7 +43,7 @@ def get_chatgpt_analysis(api_key, model_name, database_path, table_name='neural_
         return f"Missing columns in data dictionary: {', '.join(missing_columns)}"
     
     # Formatting the data for analysis
-    analysis_text = f"This is a Neural Network Model. Please acknowledge receipt of the data dictionary.  Also, please provide the analysis for Model: {model_name}\n\n"
+    analysis_text = f"This is a Neural Network Model. Please acknowledge receipt of the data dictionary. Also, please provide the analysis for Model: {model_name}\n\n"
     
     for _, row in result.iterrows():
         analysis_text += f"Table: {row.get('table_name', 'N/A')}\n"
@@ -60,6 +56,9 @@ def get_chatgpt_analysis(api_key, model_name, database_path, table_name='neural_
     for _, row in data_dictionary.iterrows():
         analysis_text += f"Variable: {row.get('variable', 'N/A')}, Class: {row.get('class', 'N/A')}, Description: {row.get('description', 'N/A')}\n"
     
+    if user_input:
+        analysis_text += f"\nUser Input: {user_input}\n"
+
     try:
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
