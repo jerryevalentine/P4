@@ -25,7 +25,7 @@ Metrics: Mean Absolute Error (MAE) is used as a metric to monitor model performa
 4.	Created a user input feature preference to get the top 10 recommended songs.
 #    ![Screenshot 2024-07-23 at 9 09 02 PM](https://github.com/user-attachments/assets/96545824-1eb6-4ac8-9509-ed819fa9d966)
 
-### Popularity Model
+### Prediction Model
 1.	Set “hit” as our target y, and set the rest of columns as X. 
 2.	Define the Neural Network Model: 
 2 hidden layers with 80 and 30 neurons respectively and an output layer with one neuron for binary classification. The ReLU activation function is used in the hidden layers, and the sigmoid activation function is used in the output layer.
